@@ -11,13 +11,17 @@ contract MessageERC20 is ERC20 {
     event Message(address from, string text);
 
     constructor()
-    ERC20("Read at TX Log", "MESSAGE(s)") {
+    ERC20("Read at Log", "MESSAGE") {
         admin = msg.sender;
     }
 
+    function decimals() public view virtual override returns (uint8) {
+        return 0;
+    }
+
     function sendMessage(address to, string memory text) public {
-        _mint(to, 1);
         emit Message(msg.sender, text);
+        _mint(to, 1);
     }
 
     /// @dev Burns all sender's tokens,
